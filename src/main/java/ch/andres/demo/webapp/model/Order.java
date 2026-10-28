@@ -20,6 +20,9 @@ public class Order {
 	@GeneratedValue
 	private Long id;
 
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status = OrderStatus.CREATED;
+
 	@Column(nullable = false)
 	Long customerId;
 

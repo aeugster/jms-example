@@ -27,6 +27,7 @@ docker-compose up
 * avoid in-memory queue?
 * add mvc or unit tests
 * avoid real passwords in .env file
+* database: string status enum might be slow: use index or ordinal?
 * use latest/r19 postgres and fix "pg_ctlcluster", details see https://github.com/docker-library/postgres/pull/1259
 
 
