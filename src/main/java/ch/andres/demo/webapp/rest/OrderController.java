@@ -1,14 +1,13 @@
 package ch.andres.demo.webapp.rest;
 
 import ch.andres.demo.webapp.domain.OrderService;
-import ch.andres.demo.webapp.dto.OrderDto;
 import ch.andres.demo.webapp.model.Order;
+import ch.andres.demo.webapp.rest.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -24,25 +23,30 @@ public class OrderController {
 	public OrderDto createOrder() {
 
 		OrderDto dto = OrderDto.builder()
-				.customerId(123)
+				.customerId(123L)
 				.amount(BigDecimal.valueOf(55.90))
 				.build();
-		createOrder(dto);
 
-		return dto;
+		return createOrder(dto);
 	}
 
 	@PostMapping()
-	public Order createOrder(@RequestBody OrderDto dto) {
+	public OrderDto createOrder(@RequestBody OrderDto dto) {
 
 		log.info("Receiving dto...");
 
+		// ignore ID
 		Order order = Order.builder()
 				.customerId(dto.getCustomerId())
 				.amount(dto.getAmount())
 				.build();
 
-		return orderService.createOrder(order);
+		order = orderService.createOrder(order);
+
+		// use e.g. Mapstruct
+		dto.setId(order.getId());
+
+		return dto;
 	}
 
 }

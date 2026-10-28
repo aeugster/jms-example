@@ -12,3 +12,8 @@ Warum auf die Service-Klasse?
 == Docker installieren ==
 * use cmd as admin (powershell does not work)
 ddi.exe install --accept-license --installation-dir="E:\Progs\Bin" --wsl-default-data-root="E:\Progs\WSL-Data"
+
+
+== passend issues ==
+* spring.datasource.driver-class-name=org.postgresql.Driver 
+this line prevents loading of driver

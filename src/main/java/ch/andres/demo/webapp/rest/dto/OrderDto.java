@@ -1,4 +1,4 @@
-package ch.andres.demo.webapp.dto;
+package ch.andres.demo.webapp.rest.dto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +9,9 @@ import java.math.BigDecimal;
 @Data
 public class OrderDto {
 
-	int customerId;
+	Long id;
+
+	Long customerId;
 	BigDecimal amount;
 
 }
