@@ -1,4 +1,4 @@
-package ch.andres.demo.webapp.rest.dto;
+package ch.andres.demo.webapp.controller.dto;
 
 import lombok.Builder;
 import lombok.Data;

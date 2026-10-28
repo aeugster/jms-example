@@ -1,8 +1,9 @@
-package ch.andres.demo.webapp.rest;
+package ch.andres.demo.webapp.controller;
 
+import ch.andres.demo.webapp.controller.dto.OrderDto;
 import ch.andres.demo.webapp.domain.OrderService;
+import ch.andres.demo.webapp.misc.ApplicationException;
 import ch.andres.demo.webapp.model.Order;
-import ch.andres.demo.webapp.rest.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class OrderController {
 	// DEMO: get function due no postman installed
 	// use right method such as POST, no verbs in URL
 	@GetMapping("create")
-	public OrderDto createOrder() {
+	public OrderDto createOrder() throws ApplicationException {
 
 		OrderDto dto = OrderDto.builder()
 				.customerId(123L)
@@ -30,10 +31,25 @@ public class OrderController {
 		return createOrder(dto);
 	}
 
+	@GetMapping("create-missing")
+	public OrderDto forceErrorOnCreate() throws ApplicationException {
+
+		OrderDto dto = OrderDto.builder()
+				// no customerId
+				.amount(BigDecimal.valueOf(55.90))
+				.build();
+
+		return createOrder(dto);
+	}
+
 	@PostMapping()
-	public OrderDto createOrder(@RequestBody OrderDto dto) {
+	public OrderDto createOrder(@RequestBody OrderDto dto) throws ApplicationException {
 
 		log.info("Receiving dto...");
+
+		if (dto.getCustomerId() == null || dto.getAmount() == null) {
+			throw new ApplicationException("Missing required fields: customerId and amount are required.");
+		}
 
 		// ignore ID
 		Order order = Order.builder()

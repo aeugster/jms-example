@@ -16,6 +16,8 @@ docker-compose up
 == Testing ==
 * create order and watch processing
   GET on http://localhost:8080/api/orders/create
+* test error handling 
+  GET on http://localhost:8080/api/orders/create-missing
 
 == Assumptions (Annahmen) ==
 * Apache ActiveMQ 'Classic' looks like a good choice for a JMS broker.
