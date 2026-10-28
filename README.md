@@ -31,6 +31,8 @@ docker-compose up
 * avoid real passwords in .env file
 * database: string status enum might be slow: use index or ordinal?
 * use latest/r19 postgres and fix "pg_ctlcluster", details see https://github.com/docker-library/postgres/pull/1259
+* open telemetry example (unverified): https://spring.io/blog/2025/11/18/opentelemetry-with-spring-boot
+* health, actuator and metrics use default spring boot libs
 
 
 == Sources ==
