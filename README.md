@@ -34,6 +34,10 @@ docker-compose up
 * open telemetry example (unverified): https://spring.io/blog/2025/11/18/opentelemetry-with-spring-boot
 * health, actuator and metrics use default spring boot libs
 
+== Dead letter ==
+* try re-feeding 2 hours later
+* add better validations in controller
+* enforce field email and send error message to responsible person (after human check)
 
 == Sources ==
 * docker https://github.com/gaelgthomas/docker-compose-with-postgresql
