@@ -25,6 +25,7 @@ public class OrderService {
 
 		// TODO: use a OrderMessage POJO instead?
 		// TODO: handle BigDecimal serialization issue
+		// or just send the orderID (as mentioned in Aufgabenstellung)
 		Map<String, Object> message = new HashMap<>();
 		message.put("id", order.getId());
 		message.put("customerId", order.getCustomerId());

@@ -22,6 +22,14 @@ public class OrderConsumer {
 	public void receiveMessage(Map<String, ?> order) throws InterruptedException {
 		log.info("Consuming message: {}", order);
 
+		// simulate possible error
+		// default: message is retried until success
+		// TODO: do error count, stop after 3 tries, mark as failed?
+		if(System.currentTimeMillis() % 2 == 0) {
+			log.error("Simulating a processing error for order: {}", order);
+			throw new RuntimeException("Simulated processing error");
+		}
+
 		Thread.sleep(5000);
 		log.info("Processing order...");
 
