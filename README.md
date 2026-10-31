@@ -4,7 +4,7 @@
 
 ### docker & postgres
 * install docker desktop e.g. 4.97.0
-* creates a folder 'db-data' in the project root for postgres data
+* startup creates a folder 'db-data' in the project root for postgres data
 ```
 docker-compose up
 ```
@@ -14,12 +14,15 @@ docker-compose up
 * build & start with IntelliJ or other IDE
 
 ## Run and test
+### fast testing and helpers (remove on prod)
 * create order and watch processing
   GET on http://localhost:8080/orders/create
 * test error handling 
   GET on http://localhost:8080/orders/create-missing
-* normal usage with curl and POST
-  curl -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d '{"customerId":"12345","amount":100.00}'
+### curl commands
+```
+curl -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d '{"customerId":"12345","amount":100.00}'
+```
 
 ## Assumptions (Annahmen)
 * Apache ActiveMQ 'Classic' looks like a good choice for a JMS broker.
@@ -29,9 +32,9 @@ docker-compose up
 * consumer has dependencies on web
 
 ## Hints for productive usage (Hinweise für produktiven Einsatz)
-* avoid in-memory queue?
+* avoid in-memory queue
 * add mvc or unit tests
-* avoid real passwords in .env file
+* remove .env file from git
 * database: OrderStatus as string might be slower than ordinal
 * use latest/r19 postgres and fix "pg_ctlcluster", details see https://github.com/docker-library/postgres/pull/1259
 * open telemetry example (unverified): https://spring.io/blog/2025/11/18/opentelemetry-with-spring-boot
