@@ -31,6 +31,6 @@ public class Order {
 	@Column(nullable = false)
 	String customerId;
 
-	@Column(nullable = false)
+	@Column(nullable = false, precision = 19, scale = 2)
 	BigDecimal amount;
 }

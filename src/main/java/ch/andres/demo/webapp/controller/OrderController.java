@@ -31,7 +31,7 @@ public class OrderController {
 
 		OrderDto dto = OrderDto.builder()
 				.customerId("123")
-				.amount(BigDecimal.valueOf(55.90))
+				.amount(BigDecimal.valueOf(123.123))
 				.build();
 
 		return createOrder(dto);
@@ -57,13 +57,14 @@ public class OrderController {
 			throw new ApplicationException("Missing required fields: customerId and amount are required.");
 		}
 
-		// ignore ID
+		// convert to entity
 		Order order = Order.builder()
 				.customerId(dto.getCustomerId())
 				.amount(dto.getAmount())
 				.build();
 
 		// write to DB
+		// TODO: stores 123.12 but returns 123.123 use validation before write and/or reload object from DB
 		order = orderService.createOrder(order);
 
 		// write to queue
@@ -72,7 +73,12 @@ public class OrderController {
 		message.put("customerId", order.getCustomerId());
 		jmsTemplate.convertAndSend(JmsConfig.QUEUE_NAME, message);
 
-		return dto;
+		// convert to DTO
+		return OrderDto.builder()
+				.id(order.getId())
+				.customerId(order.getCustomerId())
+				.amount(order.getAmount())
+				.build();
 	}
 
 }
