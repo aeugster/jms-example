@@ -3,20 +3,26 @@ package ch.andres.demo.webapp.controller;
 import ch.andres.demo.webapp.controller.dto.OrderDto;
 import ch.andres.demo.webapp.domain.OrderService;
 import ch.andres.demo.webapp.misc.ApplicationException;
+import ch.andres.demo.webapp.misc.JmsConfig;
 import ch.andres.demo.webapp.model.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("api/orders")
+@RequestMapping("orders")
 @RequiredArgsConstructor
 public class OrderController {
 
 	private final OrderService orderService;
+
+	private final JmsTemplate jmsTemplate;
 
 	// DEMO: get function due no postman installed
 	// use right method such as POST, no verbs in URL
@@ -24,7 +30,7 @@ public class OrderController {
 	public OrderDto createOrder() throws ApplicationException {
 
 		OrderDto dto = OrderDto.builder()
-				.customerId(123L)
+				.customerId("123")
 				.amount(BigDecimal.valueOf(55.90))
 				.build();
 
@@ -57,10 +63,14 @@ public class OrderController {
 				.amount(dto.getAmount())
 				.build();
 
+		// write to DB
 		order = orderService.createOrder(order);
 
-		// use e.g. Mapstruct
-		dto.setId(order.getId());
+		// write to queue
+		Map<String, Object> message = new HashMap<>();
+		message.put("id", order.getId());
+		message.put("customerId", order.getCustomerId());
+		jmsTemplate.convertAndSend(JmsConfig.QUEUE_NAME, message);
 
 		return dto;
 	}

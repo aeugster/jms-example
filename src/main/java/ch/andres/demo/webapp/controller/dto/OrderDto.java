@@ -11,7 +11,7 @@ public class OrderDto {
 
 	Long id;
 
-	Long customerId;
+	String customerId;
 	BigDecimal amount;
 
 }

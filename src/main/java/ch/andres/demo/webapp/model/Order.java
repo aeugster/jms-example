@@ -20,11 +20,16 @@ public class Order {
 	@GeneratedValue
 	private Long id;
 
+	@Column(nullable = false)
+	@Builder.Default
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status = OrderStatus.CREATED;
 
+	/**
+	 * values like "12345"
+	 */
 	@Column(nullable = false)
-	Long customerId;
+	String customerId;
 
 	@Column(nullable = false)
 	BigDecimal amount;
