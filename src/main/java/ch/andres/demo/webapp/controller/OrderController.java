@@ -58,6 +58,7 @@ public class OrderController {
 		}
 
 		// convert to entity
+		// ignore ID and status
 		Order order = Order.builder()
 				.customerId(dto.getCustomerId())
 				.amount(dto.getAmount())
@@ -78,6 +79,7 @@ public class OrderController {
 				.id(order.getId())
 				.customerId(order.getCustomerId())
 				.amount(order.getAmount())
+				.status(order.getStatus())
 				.build();
 	}
 

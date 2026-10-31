@@ -1,5 +1,6 @@
 package ch.andres.demo.webapp.controller.dto;
 
+import ch.andres.demo.webapp.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,5 @@ public class OrderDto {
 	String customerId;
 	BigDecimal amount;
 
+	OrderStatus status;
 }
