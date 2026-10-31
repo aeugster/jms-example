@@ -19,7 +19,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 	 */
 	@ExceptionHandler(value = {ApplicationException.class})
 	protected ResponseEntity<Object> handleApplication(ApplicationException ex, WebRequest request) {
-		log.info(ex.getMessage(), ex);
+		log.info(ex.getMessage());
 
 		var headers = new HttpHeaders();
 		headers.add("application-exception", "true");
