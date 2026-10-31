@@ -53,8 +53,12 @@ public class OrderController {
 
 		log.info("Receiving dto...");
 
-		if (dto.getCustomerId() == null || dto.getAmount() == null) {
-			throw new ApplicationException("Missing required fields: customerId and amount are required.");
+		if (dto.getCustomerId() == null || dto.getCustomerId().isBlank()) {
+			throw new ApplicationException("Missing field: customerId");
+		}
+		if(dto.getAmount() == null) {
+			// TODO use spring-validation to enforce max number of fraction digits
+			throw new ApplicationException("Missing field: amount");
 		}
 
 		// convert to entity
