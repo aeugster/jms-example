@@ -20,7 +20,7 @@ public class OrderConsumer {
 
 	@JmsListener(destination = JmsConfig.QUEUE_NAME)
 	public void receiveMessage(Map<String, ?> order) throws InterruptedException {
-		log.info("Consuming message: {}", order);
+		log.info("Consuming order {}, details: {}", order.get("id"), order);
 
 		// simulate possible error
 		// default: message is retried until success

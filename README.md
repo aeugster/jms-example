@@ -18,6 +18,8 @@ docker-compose up
   GET on http://localhost:8080/orders/create
 * test error handling 
   GET on http://localhost:8080/orders/create-missing
+* normal usage with curl and POST
+  curl -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d '{"customerId":"12345","amount":100.00}'
 
 ## Assumptions (Annahmen)
 * Apache ActiveMQ 'Classic' looks like a good choice for a JMS broker.
