@@ -45,6 +45,14 @@ curl -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d
 * add better validations in controller
 * enforce field email and send error message to responsible person (after human check)
 
+## Findings & review
+* outbox pattern (in DB) for reliable message delivery
+* scaling of message consumption: kubernetes instances or ThreadPoolTaskExecutor
+* packaging
+  * CONTROLLER/customer & order is for small applications (Separation of Concerns,SoC)
+  * CUSTOMER/controller & ORDER/controller is for larger applications (Separation of Domains)
+* ...
+
 ## Sources
 * docker https://github.com/gaelgthomas/docker-compose-with-postgresql
 * jms https://medium.com/@balmikprajapati53/integration-of-activemq-with-spring-boot-3-3-x-on-jdk-17-a-complete-guide-32fd2281df9d

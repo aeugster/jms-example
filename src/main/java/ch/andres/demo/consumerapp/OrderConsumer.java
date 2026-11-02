@@ -23,7 +23,7 @@ public class OrderConsumer {
 		log.info("Consuming order {}, details: {}", order.get("id"), order);
 
 		// simulate possible error
-		// default: message is retried until success
+		// default: message is retried approx 7 times
 		// TODO: do error count, stop after 3 tries, mark as failed?
 		if(System.currentTimeMillis() % 2 == 0) {
 			log.error("Simulating a processing error for order: {}", order);
